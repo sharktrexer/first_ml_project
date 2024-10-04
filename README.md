@@ -24,7 +24,7 @@ to trigger the different segments of code. Printed information is also better la
 - compare - displays data from eval in a box plot.*
 - predict algo_name_here - accuracy of the algorithm\'s data prediction*
 - algo - prints each available ml algorithm
-- help - this command
+- help - prints this list
 - exit - stop script
 
 *requires eval command to have been used first
