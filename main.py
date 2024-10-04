@@ -2,7 +2,7 @@ from package_test import test
 from ml import *
 
 def input_commands(input):
-    
+    print()
 
 def main():
     # Ensure libraries are installed from requirements.txt
