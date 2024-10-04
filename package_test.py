@@ -1,7 +1,6 @@
 # Check the versions of libraries
 def test():
     try:
-        print('\n Checking imports...\n')
         # Python
         import sys
         print('Python: {}'.format(sys.version))

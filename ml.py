@@ -24,16 +24,16 @@ url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/iris.csv"
 names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
 dataset = read_csv(url, names=names)
 
-# Data printing
-
+''' Data printing '''
 # shape
 def print_shape():
+    print('rows, columns')
     print(dataset.shape)
     print('\n')
 
 # head
-def print_head():
-    print(dataset.head(20))
+def print_head(num):
+    print(dataset.head(num))
     print('\n')
 
 # descriptions
@@ -46,7 +46,7 @@ def print_dist():
     print(dataset.groupby('class').size())
     print('\n')
 
-#Visualizations
+''' Visualizations '''
 # box and whisker plots
 def show_plot():
     dataset.plot(kind='box', subplots=True, layout=(2,2), sharex=False, sharey=False)
@@ -109,8 +109,8 @@ def predict_model(model_name):
 
         # Evaluate predictions
         print(name)
-        print('Accuracy: %', accuracy_score(Y_validation, predictions))
-        print('Confusion Matrix\n')
+        print('Accuracy: ', accuracy_score(Y_validation, predictions))
+        print('Confusion Matrix')
         print(confusion_matrix(Y_validation, predictions))
-        print('Report:\n')
+        print('Report:')
         print(classification_report(Y_validation, predictions))
