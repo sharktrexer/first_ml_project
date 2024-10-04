@@ -24,8 +24,7 @@ url = "https://raw.githubusercontent.com/jbrownlee/Datasets/master/iris.csv"
 names = ['sepal-length', 'sepal-width', 'petal-length', 'petal-width', 'class']
 dataset = read_csv(url, names=names)
 
-
-#Data printing
+# Data printing
 
 # shape
 def print_shape():
@@ -46,8 +45,6 @@ def print_desc():
 def print_dist():
     print(dataset.groupby('class').size())
     print('\n')
-
-
 
 #Visualizations
 # box and whisker plots
@@ -81,28 +78,39 @@ models.append(('KNN', KNeighborsClassifier()))
 models.append(('CART', DecisionTreeClassifier()))
 models.append(('NB', GaussianNB()))
 models.append(('SVM', SVC(gamma='auto')))
+ran_algos = False
 # evaluate each model in turn
 results = []
 names = []
-for name, model in models:
- kfold = StratifiedKFold(n_splits=10, random_state=1, shuffle=True)
- cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring='accuracy')
- results.append(cv_results)
- names.append(name)
- print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
+def evaluate_models():
+    print('name  mean   standard deviation')
+    for name, model in models:
+        kfold = StratifiedKFold(n_splits=10, random_state=1, shuffle=True)
+        cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring='accuracy')
+        results.append(cv_results)
+        names.append(name)
+        print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
+     
  
  # Compare Algorithms
-plt.boxplot(results, tick_labels=names)
-plt.title('Algorithm Comparison')
-plt.show()
+def show_algorithm_comparison():
+    plt.boxplot(results, tick_labels=names)
+    plt.title('Algorithm Comparison')
+    plt.show()
 
 # Make predictions on validation dataset
-for name, model in models:
-    model.fit(X_train, Y_train)
-    predictions = model.predict(X_validation)
+def predict_model(model_name):
+    for name, model in models:
+        if (model_name != name): 
+            continue
+        
+        model.fit(X_train, Y_train)
+        predictions = model.predict(X_validation)
 
-    # Evaluate predictions
-    print(name)
-    print(accuracy_score(Y_validation, predictions))
-    print(confusion_matrix(Y_validation, predictions))
-    print(classification_report(Y_validation, predictions))
+        # Evaluate predictions
+        print(name)
+        print('Accuracy: %', accuracy_score(Y_validation, predictions))
+        print('Confusion Matrix\n')
+        print(confusion_matrix(Y_validation, predictions))
+        print('Report:\n')
+        print(classification_report(Y_validation, predictions))
